@@ -1,6 +1,7 @@
 package com.example.webdevsummer22018serverjavajteng.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
 
@@ -40,7 +41,10 @@ public class UserService {
 		return userRepository.findUserByCredentials(user.getUsername(), user.getPassword());
 	}
 	
-	
+	@GetMapping("/api/user/{userId}")
+	public Optional<User> findUserByUserId(@PathVariable("userId") String userId) {
+		return userRepository.findById(Integer.parseInt(userId));
+	}
 	
 	@GetMapping("/api/user")
 	public List<User> findAllUsers() {
