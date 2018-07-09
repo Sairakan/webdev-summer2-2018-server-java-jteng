@@ -24,6 +24,10 @@
 			headers: {
 				'Content-Type': 'application/json'
 			}
-		});
+		}).then(registrationSuccessful);
+	}
+	
+	function registrationSuccessful() {
+		window.location.href = 'login.template.client.html';
 	}
 })();

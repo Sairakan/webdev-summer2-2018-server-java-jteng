@@ -1,12 +1,18 @@
 (function () {
     var $usernameFld, $passwordFld;
-    var $removeBtn, $editBtn, $createBtn;
+    var $emailFld;
     var $firstNameFld, $lastNameFld;
+    var $roleFld;
+    var $removeBtn, $editBtn, $createBtn;
     var $userRowTemplate, $tbody;
     var userService = new AdminUserServiceClient();
     $(main);
 
-    function main() { … }
+    function main() {
+    	$usernameFld = $('#usernameFld');
+    	$passworldFld = $('#passworldFld');
+    	
+    }
     function createUser() { … }
     function findAllUsers() { … }
     function findUserById() { … }
