@@ -23,11 +23,16 @@
 			body: userObjStr,
 			headers: {
 				'Content-Type': 'application/json'
-			}
-		}).then(registrationSuccessful);
+			},
+			'credentials': 'include'
+		}).then(registrationSuccessful, registrationFailed);
 	}
 	
 	function registrationSuccessful() {
-		window.location.href = 'login.template.client.html';
+		window.location.href = 'profile.template.client.html';
+	}
+	
+	function registrationFailed() {
+		alert('oops');
 	}
 })();
