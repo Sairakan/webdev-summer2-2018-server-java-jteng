@@ -10,7 +10,10 @@ function UserServiceClient() {
     	//TODO: Implement
     }
     function findAllUsers(callback) {
-    	//TODO: Implement
+    	return $.ajax({
+	       url: self.url,
+	       success: callback
+	   });
     }
     function findUserById(userId, callback) {
     	//TODO: Implement

@@ -30,16 +30,7 @@
     	//TODO: Implement createUser
     }
     function findAllUsers() {
-    	
-    	return fetch('/api/user', {
-    		method: 'get',
-    		headers: {
-    			'Content-Type': 'application/json'
-    		}
-    	}).then(function(users) {
-    		return users;
-    	});
-    	
+    	return userService.findAllUsers();
     }
     function findUserById() {
     	//TODO: Implement findUserById
@@ -57,14 +48,19 @@
     	//TODO: Implement renderUser
     }
     function renderUsers(users) {
-    	users = JSON.parse(users);
-    	console.log(users);
-    	$tbody.find("tr:gt(0)").remove();
-    	for (user of users) {
-	    	var $newRow = $userRowTemplate.clone().appendTo($tbody);
-	    	$newRow.id("");
-	    	$newRow.find('.wbdv-username').val()
-	    	$newRow.show();
-    	}
+    	users.then(function(userlist) {
+    		console.log(userlist);
+        	$tbody.find("tr:gt(0)").remove();
+        	for (user of userlist) {
+    	    	var $newRow = $userRowTemplate.clone().appendTo($tbody);
+    	    	$newRow.attr('id','');
+    	    	$newRow.find('.wbdv-username').html(user.username);
+    	    	$newRow.find('.wbdv-email').html(user.email);
+    	    	$newRow.find('.wbdv-first-name').html(user.firstName);
+    	    	$newRow.find('.wbdv-last-name').html(user.lastName);
+    	    	$newRow.find('.wbdv-role').html(user.role);
+    	    	$newRow.show();
+        	}
+    	});
     }
 })();
