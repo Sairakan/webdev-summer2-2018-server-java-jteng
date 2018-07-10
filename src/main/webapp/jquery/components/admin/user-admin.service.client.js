@@ -7,7 +7,10 @@ function UserServiceClient() {
     this.url = 'http://localhost:8080/api/user';
     var self = this;
     function createUser(user, callback) {
-    	//TODO: Implement
+    	return fetch(self.url, {
+    		method: 'POST',
+    		body: JSON.stringify(user)
+    	});
     }
     function findAllUsers(callback) {
     	return $.ajax({
@@ -16,12 +19,21 @@ function UserServiceClient() {
 	   });
     }
     function findUserById(userId, callback) {
-    	//TODO: Implement
+    	return fetch(
+    		self.url + '/' + userId);
     }
     function updateUser(userId, user, callback) {
-    	//TODO: Implement
+    	return fetch(self.url + '/' + userId, {
+			method: 'PUT',
+			body: JSON.stringify(user)
+    	});
+
     }
     function deleteUser(userId, callback) {
-    	//TODO: Implement
+    	return fetch(
+	        self.url + '/' + userId,
+	        { method: 'DELETE' }
+	    );
+
     }
 }
