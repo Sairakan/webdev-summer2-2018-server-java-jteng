@@ -1,6 +1,7 @@
 package com.example.webdevsummer22018serverjavajteng.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
 
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -50,6 +52,17 @@ public class UserService {
 	@GetMapping("/api/user")
 	public List<User> findAllUsers() {
 		return (List<User>) userRepository.findAll();
+	}
+	
+	@GetMapping("/api/user/{id}")
+	public Optional<User> findUserById(@PathVariable("id") Integer id) {
+		return userRepository.findById(id);
+	}
+	
+	@PutMapping("/api/user/{id}")
+	public User updateUser(@RequestBody User user) {
+		User currentUser = userRepository.save(user);
+		return currentUser;
 	}
 	
 	@DeleteMapping("/api/user/{id}")
