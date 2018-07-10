@@ -55,8 +55,8 @@
     	
     	userService.createUser(user);
     	
-    	$createPopup.show();
-    	$createPopup.fadeOut(3000);
+//    	$createPopup.show();
+//    	$createPopup.fadeOut(3000);
     }
     function findAllUsers() {
     	return userService.findAllUsers();

@@ -7,13 +7,20 @@ function UserServiceClient() {
     this.url = 'http://localhost:8080/api/user';
     var self = this;
     function createUser(user, callback) {
+    	var u = {
+    			username: 'qwe',
+    			password: 'wer',
+    			firstName: 'qwe123',
+    			lastName: 'qwe234'
+    	};
     	console.log(user);
-    	fetch(self.url, {
+    	var uStr = JSON.stringify(u);
+    	fetch('/qqqq', {
     		method: 'POST',
     		headers: {
-    			'Content-Type': 'applicaton/json'
+    			'content-type': 'applicaton/json'
     		},
-    		body: JSON.stringify(user)
+    		body: u
     	});
     }
     function findAllUsers(callback) {
