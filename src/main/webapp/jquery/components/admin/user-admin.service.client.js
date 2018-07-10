@@ -9,11 +9,11 @@ function UserServiceClient() {
     function createUser(user, callback) {
     	console.log(user);
     	fetch(self.url, {
-    		method: 'post',
-    		body: JSON.stringify(user),
+    		method: 'POST',
     		headers: {
     			'Content-Type': 'applicaton/json'
-    		}
+    		},
+    		body: JSON.stringify(user)
     	});
     }
     function findAllUsers(callback) {

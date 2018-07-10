@@ -42,6 +42,7 @@ public class UserService {
 	
 	@PostMapping("/api/user")
 	public User addUser(@RequestBody User user) {
+		System.out.println(user);
 		User currentUser = userRepository.save(user);
 		return currentUser;
 	}
