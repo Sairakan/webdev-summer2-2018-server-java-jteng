@@ -5,21 +5,23 @@
     var $roleFld;
     var $removeBtn, $editBtn, $createBtn;
     var $userRowTemplate, $tbody;
+    var $createPopup;
     var userService = new UserServiceClient();
     $(main);
 
     function main() {
     	$usernameFld = $('#usernameFld');
-    	$passworldFld = $('#passworldFld');
+    	$passwordFld = $('#passwordFld');
     	$emailFld = $('#emailFld');
     	$firstNameFld = $('#firstNameFld');
     	$lastNameFld = $('#lastNameFld');
-    	$roleFld = $('#roldFld');
+    	$roleFld = $('#roleFld');
     	$removeBtn = $('.wbdv-remove');
     	$editBtn = $('.wbdv-edit');
-    	$createBtn = $('#createBtn');
+    	$createBtn = $('.wbdv-create');
     	$userRowTemplate = $('#userRowTemplate');
     	$tbody = $('tbody');
+    	$createPopup = $('#createUserPopup');
     	
     	$removeBtn.click(deleteUser);
     	$createBtn.click(createUser);
@@ -27,7 +29,19 @@
     	renderUsers(findAllUsers());
     }
     function createUser() {
-    	//TODO: Implement createUser
+    	var user = {
+    		username: $usernameFld.val(),
+    		password: $passwordFld.val(),
+    		email: $emailFld.val(),
+    		firstName: $firstNameFld.val(),
+    		lastName: $lastNameFld.val(),
+    		role: ($roleFld.val() === "ANY" ? "STUDENT" : $roleFld.val())
+    	};
+    	
+    	userService.createUser(user);
+    	
+    	$createPopup.show();
+    	$createPopup.fadeOut(3000);
     }
     function findAllUsers() {
     	return userService.findAllUsers();

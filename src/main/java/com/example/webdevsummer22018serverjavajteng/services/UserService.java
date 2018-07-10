@@ -40,7 +40,11 @@ public class UserService {
 		return userRepository.findUserByCredentials(user.getUsername(), user.getPassword());
 	}
 	
-	
+	@PostMapping("/api/user")
+	public User addUser(@RequestBody User user) {
+		User currentUser = userRepository.save(user);
+		return currentUser;
+	}
 	
 	@GetMapping("/api/user")
 	public List<User> findAllUsers() {

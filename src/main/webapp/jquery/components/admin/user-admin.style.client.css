@@ -1,3 +1,15 @@
 th {
 	text-align: center;
 }
+
+i {
+	cursor: pointer;
+}
+
+#createUserPopup {
+	display: none;
+	text-align: center;
+	font-size: 30pt;
+	font-weight: bold;
+	background-color: rgb(153, 255, 102);
+}
