@@ -1,49 +1,29 @@
 (function () {
     var $usernameFld, $passwordFld, $verifyPasswordFld;
     var $registerBtn;
-    var userService = new UserService();
+    var userService = new UserServiceClient();
     $(main);
 
-    function main() { … }
-    function register() { … }
-})();
+    function main() {
+		$usernameFld = $('#username');
+		$passwordFld = $('#password');
+		$verifyPasswordFld = $('#password2');
+		$registerBtn = $('#registerBtn');
 
-
-(function() {
-	var $registerBtn = $('#registerBtn');
-	var $usernameFld = $('#username');
-	var $passwordFld = $('#password');
-	var $password2Fld = $('#password2');
-	
-	registerBtn.click(registerHandler);
-	
-	function registerHandler() {
-		var usernameStr = $usernameFld.val();
-		var passwordStr = $passwordFld.val();
-		var password2Str = $password2Fld.val();
-		
-		var userObj = {
-			username: usernameStr,
-			password: passwordStr
-		};
-		
-		var userObjStr = JSON.stringify(userObj);
-		
-		fetch('/register', {
-			method: 'post',
-			body: userObjStr,
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			credentials: 'include'
-		}).then(registrationSuccessful, registrationFailed);
+		$registerBtn.click(register);
 	}
-	
+    function register() {
+		if ($passwordFld.val() != $verifyPasswordFld.val()) {
+			$('p').show();
+		} else {
+			var user = {
+				username: $usernameFld.val(),
+				password: $verifyPasswordFld.val()
+			}
+			userService.register(user).then(registrationSuccessful);
+		}
+	}
 	function registrationSuccessful() {
 		window.location.href = 'profile.template.client.html';
-	}
-	
-	function registrationFailed() {
-		alert('oops');
 	}
 })();
