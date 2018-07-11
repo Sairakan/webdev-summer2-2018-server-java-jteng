@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.webdevsummer22018serverjavajteng.model.User;
+import com.example.webdevsummer22018serverjavajteng.models.User;
 import com.example.webdevsummer22018serverjavajteng.repositories.UserRepository;
 
 @RestController
@@ -58,11 +58,29 @@ public class UserService {
 	@GetMapping("/api/user/{userId}")
 	public Optional<User> findUserByUserId(@PathVariable("userId") String userId) {
 		return userRepository.findById(Integer.parseInt(userId));
+
+	@PostMapping("/api/user")
+	public User addUser(@RequestBody User user) {
+		System.out.println(user);
+		User currentUser = userRepository.save(user);
+		return currentUser;
+
 	}
 	
 	@GetMapping("/api/user")
 	public List<User> findAllUsers() {
 		return (List<User>) userRepository.findAll();
+	}
+	
+	@GetMapping("/api/user/{id}")
+	public Optional<User> findUserById(@PathVariable("id") Integer id) {
+		return userRepository.findById(id);
+	}
+	
+	@PutMapping("/api/user/{id}")
+	public User updateUser(@RequestBody User user) {
+		User currentUser = userRepository.save(user);
+		return currentUser;
 	}
 	
 	@DeleteMapping("/api/user/{id}")

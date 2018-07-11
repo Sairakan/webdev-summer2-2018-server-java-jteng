@@ -49,4 +49,7 @@
 		});
 	}
 	
+	fetch('/checkLogin', {
+		'credentials': 'include'
+	}).then();
 })();

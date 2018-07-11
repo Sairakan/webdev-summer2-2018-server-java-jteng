@@ -1,6 +1,11 @@
-package com.example.webdevsummer22018serverjavajteng.model;
+package com.example.webdevsummer22018serverjavajteng.models;
+
+import java.time.LocalDate;
 
 import javax.persistence.*;
+
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 @Entity
 public class User {
@@ -13,6 +18,10 @@ public class User {
 	private String firstName;
 	private String lastName;
 	private String email;
+	private String role;
+	private String phone;
+	@DateTimeFormat(iso=ISO.DATE)
+	private LocalDate dateOfBirth;
 	
 	public Integer getId() {
 		return id;
@@ -49,5 +58,23 @@ public class User {
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	public String getRole() {
+		return role;
+	}
+	public void setRole(String role) {
+		this.role = role;
+	}
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+	public LocalDate getDateOfBirth() {
+		return dateOfBirth;
+	}
+	public void setDateOfBirth(LocalDate dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
 	}
 }
