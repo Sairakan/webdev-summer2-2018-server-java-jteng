@@ -26,15 +26,12 @@ public class UserService {
 	@PostMapping("/api/register")
 	public User register(@RequestBody User user, HttpSession session) {
 		User currentUser =  userRepository.save(user);
-		
 		session.setAttribute("currentUser", currentUser);
-		
 		return currentUser;
 	}
 	
 	@GetMapping("/api/register/{username}")
 	public User findUserByUsername(@PathVariable("username") String username) {
-		System.out.println(username);
 		return userRepository.findUserByUsername(username);
 	}
 	
@@ -44,8 +41,15 @@ public class UserService {
 	}
 	
 	@PostMapping("/api/login")
-	public User login(@RequestBody User user) {
-		return userRepository.findUserByCredentials(user.getUsername(), user.getPassword());
+	public User login(@RequestBody User user, HttpSession session) {
+		User currentUser = userRepository.findUserByCredentials(user.getUsername(), user.getPassword());
+		session.setAttribute("currentUser", currentUser);
+		return currentUser;
+	}
+	
+	@PostMapping("/api/logout")
+	public void logout(HttpSession session) {
+		session.invalidate();
 	}
 	
 	@GetMapping("/api/user/{userId}")

@@ -7,7 +7,9 @@ function UserServiceClient() {
 	this.findUserByUsername = findUserByUsername;
 	this.register = register;
 	this.login = login;
-    this.url = 'http://localhost:8080/api/user';
+	this.checkLogin = checkLogin;
+	this.logout = logout;
+    this.url = '/api/user';
     var self = this;
     function createUser(user, callback) {
     	return fetch(self.url, {
@@ -69,6 +71,17 @@ function UserServiceClient() {
 				'content-type': 'application/json'
 			},
 			body: JSON.stringify(user),
+			credentials: 'include'
+		});
+	}
+	function checkLogin(callback) {
+		return fetch('/api/checkLogin', {
+			'credentials': 'include'
+		});
+	}
+	function logout(callback) {
+		return fetch('/api/logout', {
+			method: 'post',
 			credentials: 'include'
 		});
 	}
