@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.webdevsummer22018serverjavajteng.model.User;
+import com.example.webdevsummer22018serverjavajteng.models.User;
 import com.example.webdevsummer22018serverjavajteng.repositories.UserRepository;
 
 @RestController

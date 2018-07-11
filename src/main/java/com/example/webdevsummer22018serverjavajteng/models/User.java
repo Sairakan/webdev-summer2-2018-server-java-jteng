@@ -1,4 +1,4 @@
-package com.example.webdevsummer22018serverjavajteng.model;
+package com.example.webdevsummer22018serverjavajteng.models;
 
 import java.time.LocalDate;
 
