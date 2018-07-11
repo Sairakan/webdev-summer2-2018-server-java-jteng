@@ -48,20 +48,6 @@ public class UserService {
 		return userRepository.findUserByCredentials(user.getUsername(), user.getPassword());
 	}
 	
-	@PutMapping("/api/user/{userId}")
-	public User updateUser(
-			@PathVariable("userId") int id,
-			@RequestBody User newUser) {
-		Optional<User> optional = userRepository.findById(id);
-		if (optional.isPresent()) {
-			User user = optional.get();
-			user.setFirstName(newUser.getFirstName());
-			user.setLastName(newUser.getLastName());
-			return userRepository.save(user);
-		} else
-			return null;
-	}
-	
 	@GetMapping("/api/user/{userId}")
 	public Optional<User> findUserByUserId(@PathVariable("userId") String userId) {
 		return userRepository.findById(Integer.parseInt(userId));

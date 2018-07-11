@@ -44,16 +44,15 @@ function UserServiceClient() {
 
 	}
 	function findUserByUsername(username, callback) {
-		return fetch('/register', {
+		return fetch('/api/register/'+username, {
 			method: 'get',
 			headers: {
 				'content-type': 'application/json'
 			},
-			body: JSON.stringify(username)
 		});
 	}
 	function register(user, callback) {
-		return fetch('/register', {
+		return fetch('/api/register', {
 			method: 'post',
 			headers: {
 				'content-type': 'application/json'

@@ -14,13 +14,22 @@
 	}
     function register() {
 		if ($passwordFld.val() != $verifyPasswordFld.val()) {
-			$('p').show();
+			$('#invalidPassword').show();
 		} else {
 			var user = {
 				username: $usernameFld.val(),
 				password: $verifyPasswordFld.val()
 			}
-			userService.register(user).then(registrationSuccessful);
+			userService.findUserByUsername(user.username)
+				.then(value => value.text())
+				.then(text => {
+					console.log(text);
+					if (text == '') {
+						userService.register(user).then(registrationSuccessful);
+					} else {
+						$('#invalidUsername').show();
+					}
+				});
 		}
 	}
 	function registrationSuccessful() {
