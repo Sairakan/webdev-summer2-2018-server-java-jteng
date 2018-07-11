@@ -58,7 +58,8 @@ public class UserService {
 	@GetMapping("/api/user/{userId}")
 	public Optional<User> findUserByUserId(@PathVariable("userId") String userId) {
 		return userRepository.findById(Integer.parseInt(userId));
-
+	}
+	
 	@PostMapping("/api/user")
 	public User addUser(@RequestBody User user) {
 		System.out.println(user);
