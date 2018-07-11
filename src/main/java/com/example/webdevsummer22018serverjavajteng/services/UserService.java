@@ -23,7 +23,7 @@ public class UserService {
 	@Autowired
 	UserRepository userRepository;
 	
-	@PostMapping("/register")
+	@PostMapping("/api/register")
 	public User register(@RequestBody User user, HttpSession session) {
 		User currentUser =  userRepository.save(user);
 		
@@ -32,12 +32,18 @@ public class UserService {
 		return currentUser;
 	}
 	
-	@GetMapping("/checkLogin")
+	@GetMapping("/api/register/{username}")
+	public User findUserByUsername(@PathVariable("username") String username) {
+		System.out.println(username);
+		return userRepository.findUserByUsername(username);
+	}
+	
+	@GetMapping("/api/checkLogin")
 	public User checkLogin(HttpSession session) {
 		return (User) session.getAttribute("currentUser");
 	}
 	
-	@PostMapping("/login")
+	@PostMapping("/api/login")
 	public User login(@RequestBody User user) {
 		return userRepository.findUserByCredentials(user.getUsername(), user.getPassword());
 	}
@@ -49,7 +55,8 @@ public class UserService {
 		Optional<User> optional = userRepository.findById(id);
 		if (optional.isPresent()) {
 			User user = optional.get();
-			user.setFirstName(newUser.getFirstName());user.setLastName(newUser.getLastName());
+			user.setFirstName(newUser.getFirstName());
+			user.setLastName(newUser.getLastName());
 			return userRepository.save(user);
 		} else
 			return null;
@@ -71,11 +78,6 @@ public class UserService {
 	@GetMapping("/api/user")
 	public List<User> findAllUsers() {
 		return (List<User>) userRepository.findAll();
-	}
-	
-	@GetMapping("/api/user/{id}")
-	public Optional<User> findUserById(@PathVariable("id") Integer id) {
-		return userRepository.findById(id);
 	}
 	
 	@PutMapping("/api/user/{id}")
