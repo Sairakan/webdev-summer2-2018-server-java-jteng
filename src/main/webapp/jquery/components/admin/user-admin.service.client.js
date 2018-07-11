@@ -7,20 +7,12 @@ function UserServiceClient() {
     this.url = 'http://localhost:8080/api/user';
     var self = this;
     function createUser(user, callback) {
-    	var u = {
-    			username: 'qwe',
-    			password: 'wer',
-    			firstName: 'qwe123',
-    			lastName: 'qwe234'
-    	};
-    	console.log(user);
-    	var uStr = JSON.stringify(u);
-    	fetch('/qqqq', {
+    	return fetch(self.url, {
     		method: 'POST',
     		headers: {
-    			'content-type': 'applicaton/json'
+    			'content-type': 'application/json'
     		},
-    		body: u
+    		body: JSON.stringify(user)
     	});
     }
     function findAllUsers(callback) {
@@ -31,7 +23,7 @@ function UserServiceClient() {
     }
     function findUserById(userId, callback) {
     	return fetch(
-    		self.url + '/' + userId);
+    		self.url + '/' + userId).then(value => {return value.json();});
     }
     function updateUser(userId, user, callback) {
     	return fetch(self.url + '/' + userId, {
@@ -41,7 +33,6 @@ function UserServiceClient() {
 			},
 			body: JSON.stringify(user)
     	});
-
     }
     function deleteUser(userId, callback) {
     	return fetch(

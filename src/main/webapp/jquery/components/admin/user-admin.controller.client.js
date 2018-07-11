@@ -3,7 +3,7 @@
     var $emailFld;
     var $firstNameFld, $lastNameFld;
     var $roleFld;
-    var $createBtn, $removeBtn, $editBtn, $updateBtn;
+    var $searchBtn, $createBtn;
     var $userRowTemplate, $tbody;
     var $createPopup;
     var userService = new UserServiceClient();
@@ -28,9 +28,6 @@
     	$lastNameFld = $('#lastNameFld');
     	$roleFld = $('#roleFld');
     	$createBtn = $('.wbdv-create');
-    	$removeBtn = $('.wbdv-remove');
-    	$editBtn = $('.wbdv-edit');
-    	$updateBtn = $('.wbdv-update');
     	$userRowTemplate = $('#userRowTemplate');
     	$tbody = $('tbody');
     	$createPopup = $('#createUserPopup');
@@ -39,7 +36,6 @@
     	$createBtn.click(createUser);
     	$(document).on('click', '.wbdv-edit', editUser);
     	$(document).on('click', '.wbdv-check', updateUser);
-    	$updateBtn.click(updateUser);
     	
     	renderUsers(findAllUsers());
     }
@@ -53,31 +49,27 @@
     		role: ($roleFld.val() === "ANY" ? "STUDENT" : $roleFld.val())
     	};
     	
-    	userService.createUser(user);
+    	userService.createUser(user).then(
+        	setTimeout(function () {renderUsers(findAllUsers());}, 200));
     	
-//    	$createPopup.show();
-//    	$createPopup.fadeOut(3000);
+    	$createPopup.show();
+    	$createPopup.fadeOut(3000);
     }
     function findAllUsers() {
     	return userService.findAllUsers();
     }
-    function findUserById() {
-    	//TODO: Implement findUserById
+    function findUserById(userId) {
+    	return userService.findUserById(userId);
     }
     function deleteUser() {
     	var id = $(this).attr('id');
-    	userService.deleteUser(id);
-    	
-    	renderUsers(findAllUsers());
-    }
-    function selectUser() {
-    	//TODO: Implement selectUser
+    	userService.deleteUser(id).then(
+    		setTimeout(function () {renderUsers(findAllUsers());}, 200));
     }
     function updateUser() {
     	
-    	var userid = $(this).attr('id');
+    	var userId = $(this).attr('id');
     	var $currentRow = $(this).parent().parent().parent();
-    	var user = userService.findUserById(userid);
     	
     	var currentUsername = $currentRow.find('#editUsernameFld').val();
     	var currentPassword = $currentRow.find('#editPasswordFld').val();
@@ -86,16 +78,20 @@
     	var currentLastName = $currentRow.find('#editLastNameFld').val();
     	var currentRole = $currentRow.find('.wbdv-role :selected').val();
     	
-		user.username = currentUsername,
-		user.password = currentPassword,
-		user.email = currentEmail,
-		user.firstName = currentFirstName,
-		user.lastName = currentLastName,
-		user.role = currentRole
-    	
-    	userService.updateUser(userid, user);
-    	
-    	renderUsers(findAllUsers());
+
+    	findUserById(userId).then(user => {
+			user.username = currentUsername;
+			user.password = currentPassword;
+			user.email = currentEmail;
+			user.firstName = currentFirstName;
+			user.lastName = currentLastName;
+			user.role = currentRole;
+			
+	    	console.log(user);
+	    	
+	    	userService.updateUser(userId, user).then(
+	        	setTimeout(function () {renderUsers(findAllUsers());}, 500));
+    	});
     }
     function renderUser(user) {
     	//TODO: Implement renderUser
@@ -119,6 +115,7 @@
     	});
     }
     function editUser() {
+    	var userId = $(this).attr('id');
     	$(this).removeClass('fa-edit').addClass('fa-check');
     	$(this).removeClass('wbdv-edit').addClass('wbdv-check');
     	
@@ -128,9 +125,11 @@
     	$editUsernameFld = $currentRow.find('.wbdv-username').html(editUsername);
     	$editUsernameFld.find('#editUsernameFld').val(currentUsername);
     	
-    	var currentPassword = $currentRow.find('.wbdv-password').text();
-    	$editPasswordFld = $currentRow.find('.wbdv-password').html(editPassword);
-    	$editPasswordFld.find('#editPasswordFld').val(currentPassword);
+    	findUserById(userId).then(user => {
+    		var currentPassword = user.password;
+        	$editPasswordFld = $currentRow.find('.wbdv-password').html(editPassword);
+        	$editPasswordFld.find('#editPasswordFld').val(currentPassword);
+    	});
     	
     	var currentEmail = $currentRow.find('.wbdv-email').text();
     	$editEmailFld = $currentRow.find('.wbdv-email').html(editEmail);
@@ -145,9 +144,12 @@
     	$editLastNameFld.find('#editLastNameFld').val(currentLastName);
 
     	var currentRole = $currentRow.find('.wbdv-role').text();
+    	console.log(currentRole);
     	$editRoleFld = $currentRow.find('.wbdv-role').html(editRole);
-    	for (option of $editRoleFld.find('option')) {
-    		if (currentRole == option.value) option.attr('selected','selected');
-    	}
+    	$editRoleFld.find('option').each(function() {
+    		if (currentRole == $(this).val()) {
+    			$(this).attr('selected','selected');
+    		}
+    	});
     }
 })();
