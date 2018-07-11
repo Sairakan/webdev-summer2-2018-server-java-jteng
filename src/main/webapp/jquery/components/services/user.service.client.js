@@ -6,6 +6,7 @@ function UserServiceClient() {
 	this.updateUser = updateUser;
 	this.findUserByUsername = findUserByUsername;
 	this.register = register;
+	this.login = login;
     this.url = 'http://localhost:8080/api/user';
     var self = this;
     function createUser(user, callback) {
@@ -53,6 +54,16 @@ function UserServiceClient() {
 	}
 	function register(user, callback) {
 		return fetch('/api/register', {
+			method: 'post',
+			headers: {
+				'content-type': 'application/json'
+			},
+			body: JSON.stringify(user),
+			credentials: 'include'
+		});
+	}
+	function login(user, callback) {
+		return fetch('/api/login', {
 			method: 'post',
 			headers: {
 				'content-type': 'application/json'
