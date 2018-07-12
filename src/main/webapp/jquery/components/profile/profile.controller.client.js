@@ -11,7 +11,7 @@
 	$(main);
 	
 	function main() {
-		$username = $('#usernameFLd');
+		$username = $('#usernameFld');
 		$password = $('#passwordFld');
 		$password2 = $('#password2Fld');
 		$firstName = $('#firstNameFld');
@@ -41,9 +41,9 @@
 	}
 	function renderUser(user) {
 		currentUser = user;
-		$('#usernameFld').prop('readonly', false);
-		$('#usernameFld').val(user.username);
-		$('#usernameFld').prop('readonly', true);
+		$username.prop('readonly', false);
+		$username.val(user.username);
+		$username.prop('readonly', true);
 		$firstName.val(user.firstName);
 		$lastName.val(user.lastName);
 		$phone.val(user.phone);
