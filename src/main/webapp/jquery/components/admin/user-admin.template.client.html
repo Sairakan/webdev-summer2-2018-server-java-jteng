@@ -1,19 +1,23 @@
 <html>
-	<head>
-		<meta charset="UTF-8">
-		<title>User Admin</title>
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" />
-		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css"/>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-		<script src="../services/user.service.client.js"></script>
-		<script src="user-admin.controller.client.js"></script>
-				
-		<link rel="stylesheet" href="user-admin.style.client.css" />
-	</head>
-	<body>
+
+<head>
+	<meta charset="UTF-8">
+	<title>User Admin</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="../services/user.service.client.js"></script>
+	<script src="user-admin.controller.client.js"></script>
+
+	<link rel="stylesheet" href="user-admin.style.client.css" />
+</head>
+
+<body>
+	<div class="container-fluid">
 		<h1>User Admin</h1>
 
-		<table class="table">
+		<div class="table-responsive">
+		<table class="table table-hover">
 			<thead>
 				<tr>
 					<th scope="col">Username</th>
@@ -21,30 +25,49 @@
 					<th scope="col">Email</th>
 					<th scope="col">First</th>
 					<th scope="col">Last</th>
+					<th scope="col">Phone</th>
 					<th scope="col">Role</th>
-					<th scope="col"><i class="fa-2x fas fa-user-circle"></i></th>
+					<th scope="col">Date of Birth</th>
+					<th scope="col">
+						<i class="fa-2x fas fa-user-circle"></i>
+					</th>
 				</tr>
 				<tr class="wbdv-form">
-					<td><input id="usernameFld" class="form-control"
-					  placeholder="Username" /></td>
-					<td><input id="passwordFld" class="form-control"
-					  placeholder="Password" /></td>
-					<td><input id="emailFld" class="form-control"
-					  placeholder="email" /></td>
-					<td><input id="firstNameFld" class="form-control"
-					  placeholder="First Name" /></td>
-					<td><input id="lastNameFld" class="form-control"
-					  placeholder="Last Name" /></td>
-					<td><select id="roleFld" class="form-control">
-						<option value="ANY">Any</option>
-					    <option value="FACULTY">Faculty</option>
-					    <option value="STUDENT">Student</option>
-					    <option value="ADMIN">Admin</option>
-					</select></td>
-					<td><span class="float-right" style="white-space: nowrap">
-					      <i class="fa-2x fa fa-search wbdv-search"></i> 
-					      <i class="fa-2x fa fa-plus wbdv-create"></i>
-					</span></td>
+					<td>
+						<input id="usernameFld" class="form-control" placeholder="Username" />
+					</td>
+					<td>
+						<input id="passwordFld" class="form-control" placeholder="Password" />
+					</td>
+					<td>
+						<input id="emailFld" class="form-control" placeholder="email" />
+					</td>
+					<td>
+						<input id="firstNameFld" class="form-control" placeholder="First Name" />
+					</td>
+					<td>
+						<input id="lastNameFld" class="form-control" placeholder="Last Name" />
+					</td>
+					<td>
+						<input id="phoneFld" class="form-control" placeholder="Phone" />
+					</td>
+					<td>
+						<select id="roleFld" class="form-control">
+							<option value="ANY">Any</option>
+							<option value="FACULTY">Faculty</option>
+							<option value="STUDENT">Student</option>
+							<option value="ADMIN">Admin</option>
+						</select>
+					</td>
+					<td>
+						<input type='date' id="dateOfBirthFld" class="form-control" />
+					</td>
+					<td>
+						<span class="float-right" style="white-space: nowrap">
+							<i class="fa-2x fa fa-search wbdv-search"></i>
+							<i class="fa-2x fa fa-plus wbdv-create"></i>
+						</span>
+					</td>
 				</tr>
 			</thead>
 			<tbody>
@@ -54,20 +77,24 @@
 					<td class="wbdv-email"></td>
 					<td class="wbdv-first-name"></td>
 					<td class="wbdv-last-name"></td>
+					<td class="wbdv-phone"></td>
 					<td class="wbdv-role"></td>
+					<td class="wbdv-date-of-birth"></td>
 					<td class="wbdv-actions">
 						<span class="float-right">
 							<i class="fa-2x fa fa-edit wbdv-edit"></i>
-					    	<i class="fa-2x fa fa-times wbdv-remove"></i>
+							<i class="fa-2x fa fa-times wbdv-remove"></i>
 						</span>
 					</td>
 				</tr>
-					
+
 			</tbody>
 			<tfoot>
 			</tfoot>
 		</table>
-		<div id="createUserPopup" class="fixed-bottom">User Created</div>
-	</body>
-</html>
+		</div>
+	</div>
+	<div id="createUserPopup" class="fixed-bottom">User Created</div>
+</body>
 
+</html>
