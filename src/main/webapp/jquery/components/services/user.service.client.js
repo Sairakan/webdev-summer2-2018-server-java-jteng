@@ -8,6 +8,7 @@ function UserServiceClient() {
 	this.register = register;
 	this.login = login;
 	this.checkLogin = checkLogin;
+	this.updateProfile = updateProfile;
 	this.logout = logout;
     this.url = '/api/user';
     var self = this;
@@ -78,6 +79,16 @@ function UserServiceClient() {
 		return fetch('/api/checkLogin', {
 			'credentials': 'include'
 		});
+	}
+	function updateProfile(user, callback) {
+		return fetch('/api/profile', {
+			method: 'put',
+			headers: {
+				'content-type': 'application/json'
+			},
+			body: JSON.stringify(user),
+			credentials: 'include'
+		})
 	}
 	function logout(callback) {
 		return fetch('/api/logout', {

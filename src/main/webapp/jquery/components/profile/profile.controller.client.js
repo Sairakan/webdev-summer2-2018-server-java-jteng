@@ -4,6 +4,7 @@
 	var $firstName, $lastName;
 	var $phone, $role, $dateOfBirth;
 	var $updateBtn, $logoutBtn;
+	var $updatePopup;
 	var currentUser = null;
 	var userService = new UserServiceClient();
 	
@@ -20,63 +21,50 @@
 		$dateOfBirth = $('#dateFld');
 		$updateBtn = $('#updateBtn');
 		$logoutBtn = $('#logoutBtn');
+		$updatePopup = $('#updatePopup');
 
 		userService.checkLogin()
 			.then(value => value.json())
 			.then(renderUser);
 		
 		$updateBtn.click(updateUser);
-
-		$username.attr('readonly', true);
-
-		//findUserById(12).then(renderUser);
+		$logoutBtn.click(logout);
 		
 		$('form').submit(evt => evt.preventDefault());
 	}
-	function updateUser() {
-		if ($password.val() != $password2.val()) {
-			$('#invalidPassword').show();
-		} else {
-			$('#invalidPassword').hide();
-			var user = {
-				username: $username.val(),
-				password: $password.val(),
-				firstName: $firstName.val(),
-				lastName: $lastName.val(),
-				phone: $phone.val(),
-				role: $role.val(),
-				dateOfBirth: $dateOfBirth.val()
-			};
-	
-			console.log($dateOfBirth.val());
-			
-			// fetch("/api/user/" + currentUser.id, {
-			// 	method: 'put',
-			// 	body: JSON.stringify(user),
-			// 	'credentials': 'include',
-			// 	headers: {
-			// 		'content-type': 'application/json'
-			// 	}
-			// })
-		}
-	}
 	function renderUser(user) {
 		currentUser = user;
-		$username.prop('readonly', false);
-		$username.val(user.username);
-		$username.prop('readonly', true);
+		$('#usernameFld').prop('readonly', false);
+		$('#usernameFld').val(user.username);
+		$('#usernameFld').prop('readonly', true);
 		$firstName.val(user.firstName);
 		$lastName.val(user.lastName);
 		$phone.val(user.phone);
 		$role.val(user.role);
 		$dateOfBirth.val(user.dateOfBirth);
 	}
-	
-	function findUserById(userId) {
-		return fetch('/api/user/' + userId, {
-			'credentials': 'include'
-		}).then(function(response) {
-			return response.json();
-		});
+	function updateUser() {
+		if ($password.val() != $password2.val()) {
+			$('#invalidPassword').show();
+		} else {
+			$('#invalidPassword').hide();
+			currentUser.password = $password.val(),
+			currentUser.firstName = $firstName.val(),
+			currentUser.lastName = $lastName.val(),
+			currentUser.phone = $phone.val(),
+			currentUser.role = $role.val(),
+			currentUser.dateOfBirth = $dateOfBirth.val()
+			
+			userService.updateProfile(currentUser);
+
+			$updatePopup.show();
+			$updatePopup.fadeOut(3000);
+		}
+	}
+	function logout() {
+		userService.logout().then(logoutSuccessful);
+	}
+	function logoutSuccessful() {
+		window.location.href = '../login/login.template.client.html';
 	}
 })();

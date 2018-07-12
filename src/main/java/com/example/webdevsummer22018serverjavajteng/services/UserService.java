@@ -59,7 +59,6 @@ public class UserService {
 	
 	@PostMapping("/api/user")
 	public User addUser(@RequestBody User user) {
-		System.out.println(user);
 		User currentUser = userRepository.save(user);
 		return currentUser;
 
@@ -68,6 +67,13 @@ public class UserService {
 	@GetMapping("/api/user")
 	public List<User> findAllUsers() {
 		return (List<User>) userRepository.findAll();
+	}
+	
+	@PutMapping("/api/profile")
+	public User updateProfile(@RequestBody User user, HttpSession session) {
+		User currentUser = userRepository.save(user);
+		session.setAttribute("currentUser", currentUser);
+		return currentUser;
 	}
 	
 	@PutMapping("/api/user/{id}")
