@@ -24,8 +24,15 @@
 		$updatePopup = $('#updatePopup');
 
 		userService.checkLogin()
-			.then(value => value.json())
-			.then(renderUser);
+			.then(value => value.text())
+			.then(text => {
+				if (text == '') {
+					alert('Please Sign In');
+					window.location.href = '../login/login.template.client.html';
+				} else {
+					renderUser(JSON.parse(text));
+				}
+			});
 		
 		$updateBtn.click(updateUser);
 		$logoutBtn.click(logout);
