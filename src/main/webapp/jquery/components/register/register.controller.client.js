@@ -11,6 +11,8 @@
 		$registerBtn = $('#registerBtn');
 
 		$registerBtn.click(register);
+		
+		$('form').submit(evt => evt.preventDefault());
 	}
     function register() {
 		if ($passwordFld.val() != $verifyPasswordFld.val()) {
