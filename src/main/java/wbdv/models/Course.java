@@ -1,8 +1,10 @@
-package com.example.webdevsummer22018serverjavajteng.models;
+package wbdv.models;
 
 import java.util.Date;
 
 import javax.persistence.*;
+
+import net.minidev.json.annotate.JsonIgnore;
 
 @Entity
 public class Course {
@@ -10,6 +12,8 @@ public class Course {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	private String title;
+	@ManyToOne
+	@JsonIgnore
 	private User owner;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date created;

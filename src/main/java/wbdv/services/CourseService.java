@@ -1,4 +1,4 @@
-package com.example.webdevsummer22018serverjavajteng.services;
+package wbdv.services;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.webdevsummer22018serverjavajteng.models.Course;
-import com.example.webdevsummer22018serverjavajteng.models.User;
-import com.example.webdevsummer22018serverjavajteng.repositories.CourseRepository;
+import wbdv.models.Course;
+import wbdv.models.User;
+import wbdv.repositories.CourseRepository;
 
 public class CourseService {
 	
