@@ -19,7 +19,8 @@ import wbdv.models.Course;
 import wbdv.models.User;
 import wbdv.repositories.CourseRepository;
 
-@CrossOrigin
+@RestController
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class CourseService {
 	
 	@Autowired
