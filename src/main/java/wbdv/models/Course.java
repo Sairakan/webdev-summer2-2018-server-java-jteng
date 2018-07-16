@@ -1,6 +1,7 @@
 package wbdv.models;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -15,6 +16,8 @@ public class Course {
 	@ManyToOne
 	@JsonIgnore
 	private User owner;
+	@OneToMany(mappedBy="course")
+	private List<Module> modules;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date created;
 	@Temporal(TemporalType.TIMESTAMP)
@@ -37,6 +40,12 @@ public class Course {
 	}
 	public void setOwner(User owner) {
 		this.owner = owner;
+	}
+	public List<Module> getModules() {
+		return modules;
+	}
+	public void setModules(List<Module> modules) {
+		this.modules = modules;
 	}
 	public Date getCreated() {
 		return created;
