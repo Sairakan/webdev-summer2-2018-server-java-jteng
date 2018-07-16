@@ -2,7 +2,7 @@ package wbdv.models;
 
 import javax.persistence.*;
 
-import net.minidev.json.annotate.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Module {
