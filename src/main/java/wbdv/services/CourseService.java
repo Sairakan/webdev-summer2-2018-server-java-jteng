@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import wbdv.models.Course;
+import wbdv.models.Faculty;
 import wbdv.models.User;
 import wbdv.repositories.CourseRepository;
 
@@ -56,6 +57,15 @@ public class CourseService {
 			currentCourse.setCreated(course.getCreated());
 			
 			return courseRepository.save(currentCourse);
+		} else return null;
+	}
+	
+	@GetMapping("/api/course/{cId}/owner")
+	public Faculty findCourseOwner(@PathVariable("cId") int cId) {
+		Optional<Course> courseData = courseRepository.findById(cId);
+		if (courseData.isPresent()) {
+			Course course = courseData.get();
+			return course.getOwner();
 		} else return null;
 	}
 }

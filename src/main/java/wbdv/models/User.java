@@ -23,8 +23,6 @@ public class User {
 	private String phone;
 	@DateTimeFormat(iso=ISO.DATE)
 	private LocalDate dateOfBirth;
-	@OneToMany(mappedBy="owner")
-	private List<Course> courses;
 	
 	public Integer getId() {
 		return id;
@@ -79,11 +77,5 @@ public class User {
 	}
 	public void setDateOfBirth(LocalDate dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
-	}
-	public List<Course> getCourses() {
-		return courses;
-	}
-	public void setCourses(List<Course> courses) {
-		this.courses = courses;
 	}
 }

@@ -1,9 +1,9 @@
 package wbdv.models;
 
+import javax.persistence.*;
+
 import java.util.Date;
 import java.util.List;
-
-import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -13,9 +13,9 @@ public class Course {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	private String title;
-	@ManyToOne
+	@ManyToOne()
 	@JsonIgnore
-	private User owner;
+	private Faculty owner;
 	@OneToMany(mappedBy="course")
 	private List<Module> modules;
 	@Temporal(TemporalType.TIMESTAMP)
@@ -35,11 +35,14 @@ public class Course {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public User getOwner() {
+	public Faculty getOwner() {
 		return owner;
 	}
-	public void setOwner(User owner) {
+	public void setOwner(Faculty owner) {
 		this.owner = owner;
+		if (!owner.getOwnedCourses().contains(this)) {
+			owner.getOwnedCourses().add(this);
+		}
 	}
 	public List<Module> getModules() {
 		return modules;
