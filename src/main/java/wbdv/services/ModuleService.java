@@ -1,5 +1,6 @@
 package wbdv.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,7 +37,7 @@ public class ModuleService {
 		if (data.isPresent()) {
 			Course course = data.get();
 			return course.getModules();
-		} else return null;
+		} else return new ArrayList<Module>();
 	}
 	@DeleteMapping("/api/module/{moduleId}")
 	public void deleteModule(@PathVariable("moduleId") int moduleId) {

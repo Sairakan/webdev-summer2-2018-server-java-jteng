@@ -77,9 +77,16 @@ public class UserService {
 	}
 	
 	@PutMapping("/api/user/{id}")
-	public User updateUser(@RequestBody User user) {
-		User currentUser = userRepository.save(user);
-		return currentUser;
+	public User updateUser(@PathVariable("id") int id, @RequestBody User user) {
+		Optional<User> userData = userRepository.findById(id);
+		if (userData.isPresent()) {
+			User oldUser = userData.get();
+			if (user.getId() == oldUser.getId()) {
+				return userRepository.save(user);
+			} else {
+				return null;
+			}
+		} else return null;
 	}
 	
 	@DeleteMapping("/api/user/{id}")
