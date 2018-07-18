@@ -47,17 +47,14 @@ public class CourseService {
 	}
 	
 	@PutMapping("/api/course/{id}")
-	public Course updateUser(@PathVariable("id") String id, @RequestBody Course course) {
-		Optional<Course> opt = courseRepository.findById(Integer.parseInt(id));
-		if (opt.isPresent()) {
-			Course currentCourse = opt.get();
-			currentCourse.setTitle(course.getTitle());
-			currentCourse.setOwner(course.getOwner());
-			currentCourse.setModified(course.getModified());
-			currentCourse.setCreated(course.getCreated());
-			
-			return courseRepository.save(currentCourse);
-		} else return null;
+	public Course updateCourse(@PathVariable("id") String id, @RequestBody Course course) {
+		Optional<Course> courseData = courseRepository.findById(Integer.parseInt(id));
+		if (courseData.isPresent()) {
+			Course oldCourse = courseData.get();
+			if (oldCourse.getId() == course.getId())
+				return courseRepository.save(course);
+		}
+		return null;
 	}
 	
 	@GetMapping("/api/course/{cId}/owner")

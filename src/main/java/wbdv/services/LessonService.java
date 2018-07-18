@@ -66,11 +66,9 @@ public class LessonService {
 		Optional<Lesson> lessonData = lessonRepository.findById(lId);
 		if (lessonData.isPresent()) {
 			Lesson oldLesson = lessonData.get();
-			if (lesson.getId() == oldLesson.getId()) {
+			if (lesson.getId() == oldLesson.getId()) 
 				return lessonRepository.save(lesson);
-			} else {
-				return null;
-			}
-		} else return null;
+		}
+		return null;
 	}
 }
