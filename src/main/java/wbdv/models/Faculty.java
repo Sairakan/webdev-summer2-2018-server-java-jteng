@@ -11,7 +11,6 @@ public class Faculty extends User {
 	private String office;
 	private Boolean tenure;
 	@OneToMany(mappedBy="owner")
-	@JsonIgnore
 	private List<Course> ownedCourses;
 	
 	public Faculty() {
