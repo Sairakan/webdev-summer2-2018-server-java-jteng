@@ -61,15 +61,15 @@ public class TopicService {
 			@PathVariable("cId") int cId,
 			@PathVariable("mId") int mId,
 			@PathVariable("lId") int lId) {
-		Optional<Lesson> lessonData = lessonRepository.findById(mId);
+		Optional<Lesson> lessonData = lessonRepository.findById(lId);
 		if(lessonData.isPresent()) {
 			Lesson lesson = lessonData.get();
 			return lesson.getTopics();
 		} else return new ArrayList<Topic>();
 	}
-	@PutMapping("/api/topic/{lId}")
-	public Topic updateTopic(@PathVariable("lId") int lId, @RequestBody Topic topic) {
-		Optional<Topic> topicData = topicRepository.findById(lId);
+	@PutMapping("/api/topic/{tId}")
+	public Topic updateTopic(@PathVariable("tId") int tId, @RequestBody Topic topic) {
+		Optional<Topic> topicData = topicRepository.findById(tId);
 		if (topicData.isPresent()) {
 			Topic oldTopic = topicData.get();
 			if (topic.getId() == oldTopic.getId()) 
