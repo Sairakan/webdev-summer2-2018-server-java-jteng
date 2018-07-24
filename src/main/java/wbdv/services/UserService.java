@@ -81,12 +81,14 @@ public class UserService {
 		Optional<User> userData = userRepository.findById(id);
 		if (userData.isPresent()) {
 			User oldUser = userData.get();
-			if (user.getId() == oldUser.getId()) {
+			if (user.getId().equals(oldUser.getId())) {
 				return userRepository.save(user);
 			} else {
 				return null;
 			}
-		} else return null;
+		} else {
+			return null;
+	}
 	}
 	
 	@DeleteMapping("/api/user/{id}")
