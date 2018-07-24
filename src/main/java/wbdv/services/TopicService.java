@@ -7,23 +7,14 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.web.bind.annotation.*;
 
-import wbdv.models.User;
-import wbdv.models.Course;
-import wbdv.models.Module;
 import wbdv.models.Lesson;
 import wbdv.models.Topic;
-import wbdv.repositories.ModuleRepository;
-import wbdv.repositories.CourseRepository;
 import wbdv.repositories.LessonRepository;
 import wbdv.repositories.TopicRepository;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
 public class TopicService {
-	@Autowired
-	CourseRepository courseRepository;
-	@Autowired
-	ModuleRepository moduleRepository;
 	@Autowired
 	LessonRepository lessonRepository;
 	@Autowired
@@ -50,7 +41,7 @@ public class TopicService {
 	public List<Topic> findAllTopics() {
 		return (List<Topic>) topicRepository.findAll();
 	}
-	@GetMapping("/api/topic/tId")
+	@GetMapping("/api/topic/{tId}")
 	public Topic findTopicById(@PathVariable("tId") int tId) {
 		Optional<Topic> topicData = topicRepository.findById(tId);
 		if (topicData.isPresent()) return topicData.get();

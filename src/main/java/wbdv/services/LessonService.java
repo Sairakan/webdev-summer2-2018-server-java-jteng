@@ -45,7 +45,7 @@ public class LessonService {
 	public List<Lesson> findAllLessons() {
 		return (List<Lesson>) lessonRepository.findAll();
 	}
-	@GetMapping("/api/lesson/lId")
+	@GetMapping("/api/lesson/{lId}")
 	public Lesson findLessonById(@PathVariable("lId") int lId) {
 		Optional<Lesson> lessonData = lessonRepository.findById(lId);
 		if (lessonData.isPresent()) return lessonData.get();
