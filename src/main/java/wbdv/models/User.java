@@ -1,14 +1,20 @@
 package wbdv.models;
 
 import java.time.LocalDate;
-import java.util.List;
 
 import javax.persistence.*;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 
+import com.fasterxml.jackson.annotation.*;
+
 @Entity
+@JsonTypeInfo(use=JsonTypeInfo.Id.NAME, include=JsonTypeInfo.As.PROPERTY, property="type")
+@JsonSubTypes({@JsonSubTypes.Type(value=Admin.class, name="ADMIN"),
+	@JsonSubTypes.Type(value=Faculty.class, name="FACULTY"),
+	@JsonSubTypes.Type(value=Student.class, name="STUDENT")
+})
 public class User {
 	
 	@Id

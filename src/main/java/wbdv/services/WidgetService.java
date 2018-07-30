@@ -9,6 +9,11 @@ import org.springframework.web.bind.annotation.*;
 
 import wbdv.models.Topic;
 import wbdv.models.Widget;
+import wbdv.repositories.HeadingWidgetRepository;
+import wbdv.repositories.ImageWidgetRepository;
+import wbdv.repositories.LinkWidgetRepository;
+import wbdv.repositories.ListWidgetRepository;
+import wbdv.repositories.ParagraphWidgetRepository;
 import wbdv.repositories.TopicRepository;
 import wbdv.repositories.WidgetRepository;
 
@@ -18,7 +23,7 @@ public class WidgetService {
 	@Autowired
 	TopicRepository topicRepository;
 	@Autowired
-	WidgetRepository widgetRepository;
+	WidgetRepository<Widget> widgetRepository;
 	
 	@GetMapping("/api/widget")
 	public List<Widget> findAllWidgets() {
@@ -59,7 +64,21 @@ public class WidgetService {
 		return null;
 	}
 	@DeleteMapping("/api/widget/{wId}")
-	public void deleteTopic(@PathVariable("wId") int wId) {
+	public void deleteWidget(@PathVariable("wId") int wId) {
 		widgetRepository.deleteById(wId);
+	}
+	@PutMapping("/api/topic/{tId}/widget")
+	public List<Widget> saveWidgets(@PathVariable("tId") int tId,
+			@RequestBody List<Widget> widgets) {
+		List<Widget> savedWidgets = new ArrayList<Widget>();
+		Optional<Topic> topicData = topicRepository.findById(tId);
+		if(topicData.isPresent()) {
+			Topic topic= topicData.get();
+			for (Widget w: widgets) {
+				w.setTopic(topic);
+				savedWidgets.add(widgetRepository.save(w));
+			}
+		}
+		return savedWidgets;
 	}
 }

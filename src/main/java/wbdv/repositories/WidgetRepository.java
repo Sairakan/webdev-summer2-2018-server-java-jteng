@@ -6,6 +6,6 @@ import org.springframework.data.repository.query.Param;
 
 import wbdv.models.Widget;
 
-public interface WidgetRepository extends CrudRepository<Widget, Integer>{
+public interface WidgetRepository<T extends Widget> extends CrudRepository<Widget, Integer> {
 
 }

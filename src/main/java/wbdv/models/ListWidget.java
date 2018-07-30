@@ -1,15 +1,17 @@
 package wbdv.models;
 
+import javax.persistence.*;
+
+@Entity
 public class ListWidget extends Widget {
-	private String listItems;
+	
+	public enum ListType {
+		ORDERED, UNORDERED;
+	}
+	
+	@Enumerated
 	private ListType listType;
 	
-	public String getListItems() {
-		return listItems;
-	}
-	public void setListItems(String listItems) {
-		this.listItems = listItems;
-	}
 	public ListType getListType() {
 		return listType;
 	}

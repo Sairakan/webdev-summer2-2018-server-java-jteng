@@ -2,6 +2,8 @@ package wbdv.models;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonRootName;
+
 @Entity
 public class Student extends User {
 	private float gpa;

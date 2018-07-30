@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonRootName;
 
 @Entity
 public class Faculty extends User {

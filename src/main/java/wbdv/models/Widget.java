@@ -3,19 +3,28 @@ package wbdv.models;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 @Entity
+@JsonTypeInfo(use=JsonTypeInfo.Id.NAME, include=JsonTypeInfo.As.PROPERTY, property="type", visible=true)
+@JsonSubTypes({@JsonSubTypes.Type(value=HeadingWidget.class, name="HEADING"),
+	@JsonSubTypes.Type(value=ParagraphWidget.class, name="PARAGRAPH"),
+	@JsonSubTypes.Type(value=ListWidget.class, name="LIST"),
+	@JsonSubTypes.Type(value=LinkWidget.class, name="LINK"),
+	@JsonSubTypes.Type(value=ImageWidget.class, name="IMAGE")
+})
 public class Widget {
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
-	private String name;
+	private String widgetName;
 	@ManyToOne
 	@JsonIgnore
 	private Topic topic;
 	private int widgetIndex;
 	private String text;
-	private WidgetType widgetType;
 	
 	public int getId() {
 		return id;
@@ -23,11 +32,11 @@ public class Widget {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getName() {
-		return name;
+	public String getWidgetName() {
+		return widgetName;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setWidgetName(String widgetName) {
+		this.widgetName = widgetName;
 	}
 	public Topic getTopic() {
 		return topic;
@@ -46,11 +55,5 @@ public class Widget {
 	}
 	public void setText(String text) {
 		this.text = text;
-	}
-	public WidgetType getWidgetType() {
-		return widgetType;
-	}
-	public void setWidgetType(WidgetType widgetType) {
-		this.widgetType = widgetType;
 	}
 }

@@ -14,18 +14,23 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import wbdv.models.Admin;
+import wbdv.models.Faculty;
+import wbdv.models.Student;
 import wbdv.models.User;
+import wbdv.repositories.AdminRepository;
+import wbdv.repositories.FacultyRepository;
+import wbdv.repositories.StudentRepository;
 import wbdv.repositories.UserRepository;
 
 @RestController
 public class UserService {
-	
 	@Autowired
-	UserRepository userRepository;
+	UserRepository<User> userRepository;
 	
 	@PostMapping("/api/register")
 	public User register(@RequestBody User user, HttpSession session) {
-		User currentUser =  userRepository.save(user);
+		User currentUser = userRepository.save(user);
 		session.setAttribute("currentUser", currentUser);
 		return currentUser;
 	}
@@ -71,7 +76,7 @@ public class UserService {
 	
 	@PutMapping("/api/profile")
 	public User updateProfile(@RequestBody User user, HttpSession session) {
-		User currentUser = userRepository.save(user);
+		User currentUser = (User) userRepository.save(user);
 		session.setAttribute("currentUser", currentUser);
 		return currentUser;
 	}
@@ -82,7 +87,7 @@ public class UserService {
 		if (userData.isPresent()) {
 			User oldUser = userData.get();
 			if (user.getId().equals(oldUser.getId())) {
-				return userRepository.save(user);
+				return (User) userRepository.save(user);
 			} else {
 				return null;
 			}

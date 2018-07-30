@@ -1,5 +1,8 @@
 package wbdv.models;
 
+import javax.persistence.*;
+
+@Entity
 public class HeadingWidget extends Widget {
 	private int size;
 

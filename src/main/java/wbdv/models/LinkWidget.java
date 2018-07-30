@@ -1,5 +1,8 @@
 package wbdv.models;
 
+import javax.persistence.*;
+
+@Entity
 public class LinkWidget extends Widget {
 	private String href;
 

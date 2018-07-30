@@ -1,6 +1,7 @@
 package wbdv.services;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
@@ -28,8 +29,8 @@ public class FacultyService {
 	CourseRepository courseRepository;
 	
 	@GetMapping("/api/faculty")
-	public Iterable<Faculty> findAllFaculty() {
-		return facultyRepository.findAll();
+	public List<Faculty> findAllFaculty() {
+		return (List<Faculty>) facultyRepository.findAll();
 	}
 	
 	@PutMapping("/api/faculty/{fId}/owned/{cId}")
